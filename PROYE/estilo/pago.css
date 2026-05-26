@@ -1,0 +1,42 @@
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    padding:30px;
+}
+
+.producto{
+    background:#222;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.total{
+    font-size:30px;
+    margin-top:20px;
+}
+
+.metodo{
+    background:#1f1f1f;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:10px;
+    cursor:pointer;
+    border:2px solid transparent;
+}
+
+.metodo.activo{
+    border:2px solid gold;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:gold;
+    font-size:20px;
+    cursor:pointer;
+    margin-top:20px;
+}

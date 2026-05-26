@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mujer</title>
+<link rel="icon" href="../imagen/LOGO.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../estilo/Vestilos.css">
+</head>
+<body>
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+<!-- MENU -->
+<div class="menu" id="menu">
+<h2>MI TIENDA</h2>
+<h4> Categorías</h4>
+<a href="../index.html">Principal</a>
+<a href="mujer.html">Mujer</a>
+<a href="hombre.html">Hombre</a>
+<a href="niño.html">Niños</a>
+<h4>Ofertas</h4>
+<a href="#">Descuentos</a>
+<a href="#">Lo más vendido</a>
+
+<h4>Cuenta</h4>
+
+<a href="#">Mi perfil</a>
+<a href="#">Pedidos</a>
+
+</div>
+
+<!-- CARRITO -->
+<div class="carrito" id="carrito">
+
+<div class="carrito-titulo">
+<h2>Mi Bolsa</h2>
+</div>
+
+<div class="carrito-contenido" id="lista">
+</div>
+
+<div class="resumen">
+
+<div class="resumen-linea">
+<span>Subtotal:</span>
+<span>$<span id="subtotal">0</span></span>
+</div>
+
+<div class="resumen-linea">
+<span>Envío:</span>
+<span>Gratis</span>
+</div>
+
+<div class="resumen-total">
+<span>Total:</span>
+<span>$<span id="total">0</span></span>
+</div>
+<a href="pago.html"><button class="btn-comprar" id="comprarBtn">Comprar</button></a>
+<button class="btn-vaciar" id="vaciarBtn">Vaciar carrito</button>
+</div>
+</div>
+<!-- TOPBAR -->
+<div class="topbar">
+
+<div class="left">
+
+<span class="menu-btn" id="btnMenu">☰</span>
+
+<img src="../imagen/LOGO.png" class="logo">
+
+</div>
+
+<input
+type="text"
+id="buscador"
+class="buscador"
+placeholder="Buscar producto..."
+>
+
+<span class="menu-btn" id="btnCarrito">
+🛒 <span id="contador">0</span>
+</span>
+
+</div>
+<div class="categorias">
+<button onclick="irPagina('../index.html')">Principal</button>
+<button onclick="irPagina('hombre.html')">Hombre</button>
+<button onclick="irPagina('niño.html')">Niño</button>
+<button onclick="irPagina('bolsa.html')">Bolsas</button>
+<button onclick="irPagina('chalecos.html')">Chalecos</button>
+</div>
+<!-- TITULO -->
+<h2 style="text-align:center; margin-top:30px;">Mas vendido</h2>
+
+<!-- PRODUCTOS -->
+<section class="grid">
+<div class="card" data-nombre="blusa">
+<img src="../imagen/mujer2.jpg">
+<h4>BLUSA GUINDA</h4>
+<p>$900</p>
+<button onclick="agregar('BLUSA GUINDA',900,'imagen/mujer2.jpg')">Agregar</button>
+</div>
+<div class="card" data-nombre="blusa negra">
+<img src="../imagen/mujer3.jpg">
+<h4>BLUSA NEGRA</h4>
+<p>$500</p>
+<button onclick="agregar('BLUSA NEGRA',500,'imagen/mujer3.jpg')">Agregar</button>
+</div>
+<div class="card" data-nombre="njr">
+<img src="../imagen/mujer4.jpg">
+<h4>NJR</h4>
+<p>$800</p>
+<button onclick="agregar('NJR',800,'imagen/mujer4.jpg')">Agregar</button>
+</div>
+<div class="card" data-nombre="cartera vino">
+<img src="../imagen/mujer11.jpg">
+<h4>CARTERA VINO</h4>
+<p>$2000</p>
+<button onclick="agregar('CARTERA VINO',2000,'imagen/mujer11.jpg')">Agregar</button>
+</div>
+<div class="card" data-nombre="short cafe">
+<img src="../imagen/mujer6.jpg">
+<h4>SHORT CAFÉ</h4>
+<p>$1000</p>
+<button onclick="agregar('SHORT CAFÉ',1000,'imagen/mujer6.jpg')">Agregar</button>
+</div>
+<div class="card" data-nombre="cinto rosas">
+<img src="../imagen/mujer12.webp">
+<h4>CINTO ROSAS</h4>
+<p>$4000</p>
+<button onclick="agregar('CINTO ROSAS',4000,'imagen/mujer12.webp')">Agregar</button>
+</div>
+<div class="card" data-nombre="vestido cafe">
+<img src="../imagen/mujer1.avif">
+<h4>VESTIDO CAFÉ</h4>
+<p>$400</p>
+<button onclick="agregar('VESTIDO CAFÉ',400,'imagen/mujer1.avif')">Agregar</button>
+</div>
+<div class="card" data-nombre="guantes">
+<img src="../imagen/mujer10.jpg">
+<h4>GUANTES NGR</h4>
+<p>$700</p>
+<button onclick="agregar('GUANTES NGR',700,'imagen/mujer10.jpg')">Agregar</button>
+</div>
+</section>
+<script>
+/* VARIABLES */
+let carrito =
+JSON.parse(localStorage.getItem("carrito")) || [];
+let menu =
+document.getElementById("menu");
+let carritoUI =
+document.getElementById("carrito");
+let overlay =
+document.getElementById("overlay");
+let btnMenu =
+document.getElementById("btnMenu");
+let btnCarrito =
+document.getElementById("btnCarrito");
+/* MENU */
+btnMenu.onclick = function(e){
+e.stopPropagation();
+menu.classList.toggle("activo");
+
+carritoUI.classList.remove("activo");
+
+overlay.classList.add("activo");
+
+}
+
+/* CARRITO */
+
+btnCarrito.onclick = function(e){
+
+e.stopPropagation();
+
+carritoUI.classList.toggle("activo");
+
+menu.classList.remove("activo");
+
+overlay.classList.add("activo");
+
+}
+
+/* OVERLAY */
+
+overlay.onclick = function(){
+
+menu.classList.remove("activo");
+
+carritoUI.classList.remove("activo");
+
+overlay.classList.remove("activo");
+
+}
+
+/* AGREGAR */
+
+function agregar(nombre,precio,imagen){
+
+let existe =
+carrito.find(item => item.nombre === nombre);
+
+if(existe){
+
+existe.cantidad++;
+
+}else{
+
+carrito.push({
+
+nombre,
+precio,
+imagen,
+cantidad:1
+
+});
+
+}
+
+guardar();
+
+}
+
+/* GUARDAR */
+
+function guardar(){
+
+localStorage.setItem(
+"carrito",
+JSON.stringify(carrito)
+);
+
+actualizar();
+
+}
+
+/* ACTUALIZAR */
+
+function actualizar(){
+
+let lista =
+document.getElementById("lista");
+
+let total = 0;
+
+lista.innerHTML = "";
+
+if(carrito.length === 0){
+
+lista.innerHTML =
+"<p>Tu carrito está vacío</p>";
+
+}
+
+carrito.forEach((item,i)=>{
+
+let subtotal =
+item.precio * item.cantidad;
+
+total += subtotal;
+
+lista.innerHTML += `
+
+<div class="item">
+
+<img src="../${item.imagen}">
+
+<div class="item-info">
+
+<h4>${item.nombre}</h4>
+
+<p>$${item.precio}</p>
+
+</div>
+
+<div class="cantidad">
+
+<button onclick="cambiarCantidad(${i},-1)">-</button>
+
+<span>${item.cantidad}</span>
+
+<button onclick="cambiarCantidad(${i},1)">+</button>
+
+</div>
+
+<div class="item-total">
+$${subtotal}
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("subtotal").innerText = total;
+
+document.getElementById("total").innerText = total;
+
+document.getElementById("contador").innerText =
+carrito.length;
+
+}
+
+/* CANTIDAD */
+
+function cambiarCantidad(i,cambio){
+
+carrito[i].cantidad += cambio;
+
+if(carrito[i].cantidad <= 0){
+
+carrito.splice(i,1);
+
+}
+
+guardar();
+
+}
+
+/* VACIAR */
+
+document.getElementById("vaciarBtn")
+.onclick = function(){
+
+carrito = [];
+
+guardar();
+
+}
+
+/* COMPRAR */
+document.getElementById("comprarBtn").addEventListener("click", function(){
+
+    if(carrito.length === 0){
+        alert("Tu carrito está vacío");
+        return;
+    }
+
+    // guardar carrito
+    localStorage.setItem(
+        "carritoPago",
+        JSON.stringify(carrito)
+    );
+
+    // guardar pagina actual
+    localStorage.setItem(
+        "paginaActual",
+        window.location.pathname
+    );
+
+    // ir al pago
+    window.location.href = "pago.html";
+
+});
+
+/* BUSCADOR */
+
+document.getElementById("buscador")
+.addEventListener("keyup", function(){
+
+let filtro =
+this.value.toLowerCase();
+
+document.querySelectorAll(".card")
+.forEach(card => {
+
+let nombre =
+card.dataset.nombre.toLowerCase();
+
+card.style.display =
+nombre.includes(filtro)
+? "block"
+: "none";
+
+});
+
+});
+
+/* INICIAR */
+
+actualizar();
+
+function irPagina(url){
+    window.location.href = url;
+}
+
+
+
+
+
+
+
+function abrirModal(tipo){
+let titulo =
+document.getElementById("tituloModal");
+let texto =
+document.getElementById("textoModal");
+/* PRIVACIDAD */
+if(tipo === "privacidad"){
+titulo.innerText =
+"Aviso de Privacidad";
+texto.innerHTML = `
+<p>
+En MI TIENDA nos comprometemos
+a proteger la privacidad y seguridad
+de nuestros clientes.
+</p>
+<p>
+La información personal recopilada,
+como nombre, correo electrónico,
+teléfono y dirección, será utilizada
+únicamente para procesar pedidos,
+realizar envíos y brindar una mejor
+experiencia de compra.
+</p>
+<p>
+No compartimos ni vendemos información
+personal a terceros sin autorización
+del usuario.
+</p>
+<p>
+Toda la información es almacenada
+de forma segura y utilizada conforme
+a las leyes de protección de datos.
+</p>
+<p>
+Al utilizar este sitio web,
+aceptas nuestras políticas
+de privacidad.
+</p>
+`;
+/* TERMINOS */
+}else{
+titulo.innerText =
+"Términos y Condiciones";
+texto.innerHTML = `
+<p>
+Bienvenido a MI TIENDA.
+</p>
+<p>
+Al acceder y utilizar este sitio web,
+aceptas cumplir con los siguientes
+términos y condiciones.
+</p>
+<p>
+Todos los productos están sujetos
+a disponibilidad y los precios pueden
+cambiar sin previo aviso.
+</p>
+<p>
+MI TIENDA se reserva el derecho
+de modificar productos, promociones
+y contenido del sitio en cualquier momento.
+</p>
+<p>
+No nos hacemos responsables por
+errores tipográficos, fallas técnicas
+o problemas ocasionados por terceros.
+</p>
+<p>
+El usuario se compromete a utilizar
+este sitio web de manera legal,
+respetuosa y sin afectar el funcionamiento
+de la plataforma.
+</p>
+<p>
+Cualquier compra realizada en este sitio
+estará sujeta a validación y disponibilidad.
+</p>
+`;
+}
+{
+document.getElementById("modalLegal").style.display = "flex";
+}
+/* CERRAR */
+function cerrarModal(){
+document.getElementById("modalLegal")
+.style.display = "none";
+}
+/* CERRAR AL DAR CLICK AFUERA */
+window.addEventListener("click", function(e){
+let modal = document.getElementById("modalLegal");
+if(e.target == modal){
+modal.style.display = "none";
+}
+})};
+</script>
+<footer class="footer">
+
+<div class="footer-contenido">
+
+<div>
+<h4>Sobre nosotros +</h4>
+<p>Quienes somos</p>
+<p>nuestras tiendas</p>
+<p>contactos</p>
+</div>
+
+<div>
+<h4>Ayuda +</h4>
+<p>Servicio al cliente</p>
+<p>Compra a mayoreo</p>
+<p>Como comprar</p>
+<p>Cuida tus productos</p>
+</div>
+
+<div>
+
+<h4>Síguenos</h4>
+
+<p>
+<a href="https://www.facebook.com/share/1CMwbFHrSi/"
+target="_blank">
+Facebook
+</a>
+</p>
+
+<p>
+<a class="redes-enlace"
+href="https://www.instagram.com/usiel_mendez4556?igsh=NzBsZnd1MnRlbHZ2"
+target="_blank">
+Instagram
+</a>
+</p>
+
+<p>YouTube</p>
+
+<p>TikTok</p>
+
+</div>
+
+<div>
+
+<h4>Métodos de pago</h4>
+
+<p>Visa</p>
+<p>Mastercard</p>
+<p>Eleven</p>
+<p>OXXO</p>
+<p>Citibanamex</p>
+
+</div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer-bottom">
+<p onclick="abrirModal('privacidad')" class="link-footer">Aviso de privacidad</p>
+<p onclick="abrirModal('terminos')" class="link-footer">Términos y condiciones</p>
+</div>
+<!-- ===== MODAL ===== -->
+<div id="modalLegal" class="modal-legal">
+<div class="modal-contenido">
+<span class="cerrar" onclick="cerrarModal()">
+&times;
+</span>
+<h2 id="tituloModal"></h2>
+<div id="textoModal"></div>
+</div>
+</div>
+</div>
+</footer>
+</div>
+
+</footer>
+
+</body>
+</html>

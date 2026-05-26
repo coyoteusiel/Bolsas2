@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago - ROCKO</title>
+    <link rel="stylesheet" href="../estilo/pago.css">
+</head>
+<body>
+
+<h1>Finalizar compra</h1>
+<div id="productos"></div>
+
+<div class="total">
+    Total: $<span id="total">0</span>
+</div>
+
+<h2>Método de pago</h2>
+<div class="metodos-contenedor">
+    <div class="metodo" data-metodo="Visa">Visa</div>
+    <div class="metodo" data-metodo="Mastercard">Mastercard</div>
+    <div class="metodo" data-metodo="OXXO">OXXO</div>
+    <div class="metodo" data-metodo="7-Eleven">7-Eleven</div>
+</div>
+
+<button id="pagar">Comprar Now</button>
+
+<script>
+const carrito = JSON.parse(localStorage.getItem("carritoPago")) || [];
+const productosContainer = document.getElementById("productos");
+let total = 0;
+
+/* MOSTRAR PRODUCTOS RECAUDADOS */
+carrito.forEach(item => {
+    let itemTotal = item.precio * item.cantidad;
+    total += itemTotal;
+
+    productosContainer.innerHTML += `
+    <div class="producto">
+        <h3>${item.nombre} (x${item.cantidad})</h3>
+        <h2>$${itemTotal}</h2>
+    </div>
+    `;
+});
+
+document.getElementById("total").innerText = total;
+
+/* SELECCIÓN DE MÉTODO */
+let metodoSeleccionado = "";
+document.querySelectorAll(".metodo").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".metodo").forEach(b => b.classList.remove("activo"));
+        btn.classList.add("activo");
+        metodoSeleccionado = btn.dataset.metodo;
+    });
+});
+
+/* PROCESAR EL PAGO */
+document.getElementById("pagar").addEventListener("click", () => {
+    if(carrito.length === 0){
+        alert("No hay productos para pagar.");
+        return;
+    }
+    if(metodoSeleccionado === ""){
+        alert("Selecciona un método de pago");
+        return;
+    }
+    alert("¡Pago realizado con éxito mediante " + metodoSeleccionado + "!");
+    // obtener pagina anterior
+let regresar = localStorage.getItem("paginaActual");
+    // Limpieza total post-compra
+    localStorage.removeItem("carrito");
+    localStorage.removeItem("carritoPago");
+
+    window.location.href = regresar;
+
+});
+</script>
+</body>
+</html>
